@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>reactJs之入门HelloWorld</title>
+    <!-- react.js -> React主要核心-->
+    <script src="../build/react.js"></script>
+    <!--react-dom.js 是提供与 DOM 相关的功能-->
+    <script src="../build/react-dom.js"></script>
+    <!--Browser.js 的作用是将 JSX 语法转为 JavaScript 语法，这一步很消耗时间，实际上线的时候，应该将它放到服务器完成。-->
+    <script src="../build/browser.min.js"></script>
+    <style type="text/css">
+        /*自定义类样式*/
+        .fontColor {
+            color: red;
+            font-size: 20px;
+            font-weight: 200;
+        }
+        .myUL{
+            color: aqua;
+        }
+    </style>
+
+</head>
+<body id="body">
+<div id="root"></div>
+<div id="e1"></div>
+<div id="orderManager"></div>
+<div id="orderManagerArray"></div>
+<div id="orderManagerByReactClass"></div>
+<div id="last"></div>
+<script type="text/babel">
+    /*这里 jsx语法中 我们需要使用html中class类样式的属性，这里需要使用className*/
+    var myName = <p>您好:<span className="fontColor">K.sea</span></p>
+    ReactDOM.render(
+            myName,
+            document.getElementById("root")
+    );
+
+
+
+
+    /*jsx语法解析
+     React.createElement方法创建并返回一个给定类型的ReactElement元素。
+
+     ReactElement createElement(
+     string/ReactClass type,  //type参数可以是一个html标签名称字符串，也可以是一个ReactClasss。
+     [object props], //该标签的属性，这个参数是可选的。
+     [children ...] //该元素的子节点，同样也是可选的
+     )
+     */
+
+    var div_element=React.createElement("div",null,"this is React create element!");
+    /*
+       这里React.createElement("div",null,"this is React create element!");转义成html
+       的内容就是<div>this is React create element!</div>
+      */
+    ReactDOM.render(
+            div_element,
+            document.getElementById("e1")
+    );
+
+
+
+
+
+
+    /*接下来我们继续围绕React.createElement进行深入探讨与展开*/
+    var  orderItem=React.createElement("li",null,"订单号");
+    var customerOrderItem=React.createElement("li",null,"商家运单号");
+    var deliverOrderItem=React.createElement("li",null,"运单号");
+    /*这里为ul增加一个类样式:myUL*/
+    /*此处我们成功创建了一个ul列表,在这里后面的子选项，我们可以理解为是java中的可变参数..数组*/
+    var orderManagerRoot=React.createElement("ul",{className:'myUL'},orderItem,customerOrderItem,deliverOrderItem);
+    ReactDOM.render(
+            orderManagerRoot,
+            document.getElementById("orderManager")
+    );
+
+
+
+
+    /*改造之后的写法同样使用，可见react非常的灵活*/
+    var orderManagerArray=React.createElement("ul",{className:'myUL'},[orderItem,customerOrderItem,deliverOrderItem]);
+    ReactDOM.render(
+      orderManagerArray,
+      document.getElementById("orderManagerArray")
+    );
+
+
+
+    /*
+       通过类型是ReactClass来进行创建
+       这里创建 LiItem 这个类 组建
+    */
+    var LiItem=React.createClass({
+        render:function () {
+            return (
+                    <li>{this.props.text}</li>
+            );
+        }
+    });
+        /*此处通过返回的ReactClass：LiItem来创建每个子元素，其中这里的key，必须是唯一标识，text是其LiItem的属性*/
+     orderItem=React.createElement(LiItem,{key:"order",text:"订单号"});
+     customerOrderItem=React.createElement(LiItem,{key:"customerOrder",text:"商家运单号"});
+     deliverOrderItem=React.createElement(LiItem,{key:"deliver",text:"运单号"});
+    var RootUL=React.createElement("ul",{className:'myUL'},orderItem,customerOrderItem,deliverOrderItem);
+
+    ReactDOM.render(
+            RootUL,
+            document.getElementById("orderManagerByReactClass")
+    );
+
+
+
+
+     LiItem=React.createClass({
+        render:function () {
+            return (
+                    /*这里只能用属性children*/
+                    <li>{this.props.children}</li>
+            );
+        }
+    });
+    /*此处针对上面的在进行改造 React.createElement(LiItem,{key:"order"},"订单号") 那种方式方便就用那种，足尖react的灵活*/
+    orderItem=React.createElement(LiItem,{key:"order"},"订单号");
+    customerOrderItem=React.createElement(LiItem,{key:"customerOrder"},"商家运单号");
+    deliverOrderItem=React.createElement(LiItem,{key:"deliver"},"运单号");
+    var RootUL=React.createElement("ul",{className:'myUL'},orderItem,customerOrderItem,deliverOrderItem);
+
+    ReactDOM.render(
+            RootUL,
+            document.getElementById("last")
+    );
+
+
+</script>
+
+</body>
+</html>
