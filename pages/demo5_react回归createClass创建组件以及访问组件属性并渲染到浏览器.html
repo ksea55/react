@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>reactJs之入门HelloWorld</title>
+    <!-- react.js -> React主要核心-->
+    <script src="../build/react.js"></script>
+    <!--react-dom.js 是提供与 DOM 相关的功能-->
+    <script src="../build/react-dom.js"></script>
+    <!--Browser.js 的作用是将 JSX 语法转为 JavaScript 语法，这一步很消耗时间，实际上线的时候，应该将它放到服务器完成。-->
+    <script src="../build/browser.min.js"></script>
+
+
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+    /*创建组件 Hello*/
+    var Hello = React.createClass({
+        render: function () {
+            /*通过this.props.name访问组件Hello的name属性*/
+            return <div>Hello，{this.props.name}</div>;
+        }
+    });
+
+    ReactDOM.render(
+            /*渲染组件Hello*/
+            <Hello name="K.sea"/>,
+            document.getElementById("root")
+    );
+
+</script>
+
+</body>
+</html>
