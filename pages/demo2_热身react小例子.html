@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>reactJs之入门HelloWorld</title>
+    <!-- react.js -> React主要核心-->
+    <script src="../build/react.js"></script>
+    <!--react-dom.js 是提供与 DOM 相关的功能-->
+    <script src="../build/react-dom.js"></script>
+    <!--Browser.js 的作用是将 JSX 语法转为 JavaScript 语法，这一步很消耗时间，实际上线的时候，应该将它放到服务器完成。-->
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+
+<div id="root"></div>
+
+<script type="text/babel">
+    /*
+     这里通过React.createClass创建一个Hello类 作为组建
+     */
+    var Hello = React.createClass({
+        /*
+         render 这里进行方法渲染
+        */
+        render: function () {
+            /*渲染的结果*/
+            return (
+                    /*在这里，必须还的用<P>标签将要渲染的结果进行嵌套，如果不用还会报错*/
+                    <p>
+                        <h1>您好:</h1><input type="text" placeholder="请输入你的昵称"/>
+                        <br/><br/>
+                        /* this.props.date.toTimeString()
+                           这里获取Hello上的属性值
+                           通过props
+                         */
+                        <h1>当前时间是:</h1>{this.props.date.toTimeString()}
+                    </p>
+            );
+        }
+    });
+
+    /*此处通过定时器来进行调用*/
+    setInterval(function () {
+        /*通过ReactDOM.render进行渲染*/
+        ReactDOM.render(
+                /*这里是渲染的组件Hello，并且赋有属性date并赋值通过{new Date()}时间对象*/
+                <Hello date={new Date()}/>,
+                document.getElementById("root")
+        );
+    },500)
+
+</script>
+
+</body>
+</html>
