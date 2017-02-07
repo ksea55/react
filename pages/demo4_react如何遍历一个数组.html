@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>reactJs之入门HelloWorld</title>
+    <!-- react.js -> React主要核心-->
+    <script src="../build/react.js"></script>
+    <!--react-dom.js 是提供与 DOM 相关的功能-->
+    <script src="../build/react-dom.js"></script>
+    <!--Browser.js 的作用是将 JSX 语法转为 JavaScript 语法，这一步很消耗时间，实际上线的时候，应该将它放到服务器完成。-->
+    <script src="../build/browser.min.js"></script>
+
+
+</head>
+<body>
+<div id="root1"></div>
+<Br/><Br/><br/>
+<div id="root2"></div>
+<script type="text/babel">
+    //定义一个数组
+    var names = ["Jacky", "Mexican", "K.sea", "Whysea"];
+
+    //第一种写法:遍历names数组并渲染到浏览器
+    ReactDOM.render(
+            //返货的结果
+            <div>
+
+                {/*调用map便利,name变量*/
+                    names.map(function (name, index) {
+                        /*
+                         这里{name}取得遍历的每一项结果这里需要用{ }来进行取值
+                         在这里当然div的key可以不加，在google浏览器上不加的话浏览器解析会报
+                         react map : Each child in an array or iterator should have a unique "key" prop.
+                         Check the top-level render call using <div>.
+                         See https://fb.me/react-warning-keys for more information.     in div
+                         异常信息，当加上key之后就不会有了
+                         */
+                        return <div key={'nameKey_' + index}>序号{index},Hello,{name}</div>;
+                    })
+                }
+            </div>,
+            document.getElementById("root1")
+    );
+
+    //第二种写法:遍历数组
+    ReactDOM.render(
+            //返货的结果
+            <div>
+                {
+                    names.map(
+                            (name, index) => {
+                                return <div key={'nameKey_' + index}>序号{index},Hello,{name}</div>;
+                            }
+                    )
+                }
+            </div>,
+            document.getElementById("root2")
+    );
+
+</script>
+
+</body>
+</html>
