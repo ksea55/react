@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>reactJs之入门HelloWorld</title>
+    <!-- react.js -> React主要核心-->
+    <script src="../build/react.js"></script>
+    <!--react-dom.js 是提供与 DOM 相关的功能-->
+    <script src="../build/react-dom.js"></script>
+    <!--Browser.js 的作用是将 JSX 语法转为 JavaScript 语法，这一步很消耗时间，实际上线的时候，应该将它放到服务器完成。-->
+    <script src="../build/browser.min.js"></script>
+
+
+</head>
+<body>
+<div id="root"></div>
+<br/><br/><br/>
+<div id="root1"></div>
+<script type="text/babel">
+    /*第一种写法：创建一个节点组件*/
+    var Nodes = React.createClass({
+        render: function () {
+            return (
+                    <ul>
+                        {
+                            React.Children.map(this.props.children, function (child) {
+                                return <li>{child}</li>;
+                            })
+
+                        }
+                    </ul>)
+
+        }
+    });
+
+    ReactDOM.render(
+            <Nodes>
+                <h1>订单号</h1>
+                <h1>运单号</h1>
+                <h1>商家运单号</h1>
+            </Nodes>,
+            document.getElementById("root")
+    );
+
+
+
+    /*第二种写法:创建节点组件*/
+
+    var NodesList = React.createClass({
+        render: function () {
+            return (<ul>
+                {
+                    React.Children.map(
+                            (children, child)=> {
+                                return <li>{child}</li>;
+                            })
+                }
+            </ul>);
+        }
+    });
+
+    ReactDOM.render(
+            <Nodes>
+                <h1>订单号</h1>
+                <h1>运单号</h1>
+                <h1>商家运单号</h1>
+            </Nodes>,
+            document.getElementById("root1")
+    );
+
+
+
+</script>
+
+</body>
+</html>
