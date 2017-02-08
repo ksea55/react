@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>reactJs之入门HelloWorld</title>
+    <!-- react.js -> React主要核心-->
+    <script src="../build/react.js"></script>
+    <!--react-dom.js 是提供与 DOM 相关的功能-->
+    <script src="../build/react-dom.js"></script>
+    <!--Browser.js 的作用是将 JSX 语法转为 JavaScript 语法，这一步很消耗时间，实际上线的时候，应该将它放到服务器完成。-->
+    <script src="../build/browser.min.js"></script>
+
+
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+    var MyComponent = React.createClass({
+
+        handlerClick: function () {
+            this.refs.myInput.focus();
+        },
+        render: function () {
+            return (
+                    <div>
+                        <input type="text" ref="myInput"/>
+                        <input type="button" value="点击我文本将获得焦点"  onClick={this.handlerClick}/>
+                    </div>
+            )
+        }
+
+    });
+
+
+    ReactDOM.render(
+            <MyComponent />,
+            document.getElementById("root")
+    );
+
+</script>
+
+</body>
+</html>
