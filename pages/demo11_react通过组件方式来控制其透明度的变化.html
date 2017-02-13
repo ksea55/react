@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>reactJs之入门HelloWorld</title>
+    <!-- react.js -> React主要核心-->
+    <script src="../build/react.js"></script>
+    <!--react-dom.js 是提供与 DOM 相关的功能-->
+    <script src="../build/react-dom.js"></script>
+    <!--Browser.js 的作用是将 JSX 语法转为 JavaScript 语法，这一步很消耗时间，实际上线的时候，应该将它放到服务器完成。-->
+    <script src="../build/browser.min.js"></script>
+
+
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+
+    var Hello = React.createClass({
+        //设置改组件初始化状态值
+        getInitialState: function () {
+            return {opacity: 1.0};
+        }, /*此处设涉及到组件的生命周期*/
+        componentDidMount: function () {
+            var timer = setInterval(function () {
+                var opacity = this.state.opacity;
+                opacity = opacity - 0.1;
+
+                if (opacity < 0.1) {
+                    opacity = 1.0;
+                }
+                /*设置状态*/
+                this.setState({
+                    opacity: opacity
+                });
+
+
+            }.bind(this), 1000);
+        },
+        render: function () {
+            return (
+                    <div style={{opacity: this.state.opacity}}>
+                        Hello,{this.props.name}
+                    </div>
+            )
+        }
+    });
+
+    ReactDOM.render(
+            <Hello name="Mexican"/>,
+        document.getElementById("root")
+    );
+
+</script>
+
+</body>
+</html>
